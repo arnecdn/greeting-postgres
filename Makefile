@@ -1,4 +1,4 @@
-TAG ?= 0.2
+TAG ?= 0.7
 APP_NAME = greeting-postgres
 IMAGE_NAME = arnecdn/$(APP_NAME)
 
@@ -30,6 +30,4 @@ deploy: build_image
 clean:
 	@echo "Cleaning up..."
 	@echo "Removing image from Minikube..."
-	minikube image rm "$(IMAGE_NAME):$(TAG)" 2>/dev/null || true
-	@echo "Cleaning local target..."
-	cargo clean || true
+	minikube image rm docker.io/$(IMAGE_NAME):$(TAG) 2>/dev/null || true

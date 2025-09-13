@@ -1,4 +1,4 @@
-TAG ?= 0.7
+TAG ?= 0.15
 APP_NAME = greeting-postgres
 IMAGE_NAME = arnecdn/$(APP_NAME)
 

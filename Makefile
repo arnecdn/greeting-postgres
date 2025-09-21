@@ -2,8 +2,13 @@ TAG ?= 0.15
 APP_NAME = greeting-postgres
 IMAGE_NAME = arnecdn/$(APP_NAME)
 
+BREW_PACKAGES := cosign tenv terraform-docs tflint checkov trivy
 
-.PHONY: all build_image deploy clean validate-tag
+.PHONY: install all build_image deploy clean validate-tag
+
+install:
+	brew tap hashicorp/tap
+	brew install $(BREW_PACKAGES)
 
 all: build_image deploy
 
@@ -26,6 +31,20 @@ deploy: build_image
 		echo "Error: Failed to load image into Minikube."; \
 		exit 1; \
 	}
+
+tf-apply:
+	@echo "Applying Terraform configuration..."
+	cd terraform && terraform init && terraform apply -auto-approve || { \
+		echo "Error: Terraform apply failed."; \
+		exit 1; \
+	}
+
+tf-destroy:
+	@echo "Destroying Terraform-managed infrastructure..."
+	cd terraform && terraform destroy -auto-approve || { \
+  		echo "Error: Terraform destroy failed."; \
+  		exit 1; \
+  			}
 
 clean:
 	@echo "Cleaning up..."

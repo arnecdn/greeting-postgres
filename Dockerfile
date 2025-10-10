@@ -20,13 +20,3 @@ RUN rm -rf /pg_tracing && \
     apt-get remove --purge -y git build-essential postgresql-server-dev-16 && \
     apt-get autoremove -y && \
     apt-get clean
-
-    # Add custom config file
-#COPY postgresql_pg_tracing.conf /etc/postgresql/postgresql.conf
-
-# Optionally, set the config file location
-#ENV POSTGRESQL_CONF=/etc/postgresql/postgresql.conf
-
-
-# Start PostgreSQL with the custom config
-#CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
